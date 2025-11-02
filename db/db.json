@@ -1,40 +1,67 @@
 {
   "artists": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Vincent van Gogh",
       "descricao": "Conhecido por suas pinceladas expressivas e cores vibrantes.",
       "imagem": "images/Vincent_van_Gogh.jpg",
       "obras": [
-        { "titulo": "Noite Estrelada", "imagem": "images/Starry_Night_.jpg" },
-        { "titulo": "Girassóis", "imagem": "images/girassois.jpg" },
-        { "titulo": "Quarto em Arles", "imagem": "images/quarto-arles.jpg" }
+        {
+          "titulo": "Noite Estrelada",
+          "imagem": "images/Starry_Night_.jpg"
+        },
+        {
+          "titulo": "Girassóis",
+          "imagem": "images/girassois.jpg"
+        },
+        {
+          "titulo": "Quarto em Arles",
+          "imagem": "images/quarto-arles.jpg"
+        }
       ],
-      "descricaoCompleta": "Vincent van Gogh (1853–1890) foi um dos pintores mais influentes da história da arte ocidental..."
+      "descricaoCompleta": "Vincent van Gogh (1853-1890) foi um dos pintores mais influentes da história da arte ocidental..."
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Frida Kahlo",
       "descricao": "Sua arte é marcada por cores intensas e autorretratos.",
-      "imagem": "images/Frida-Kahlo.jpg",
+      "imagem": "public/assets/images/frida_khalo.jpg",
       "obras": [
-        { "titulo": "Autorretrato com Colar de Espinhos", "imagem": "images/frida_kahlo.jpg" },
-        { "titulo": "As Duas Fridas", "imagem": "images/as-duas-fridas.jpg" },
-        { "titulo": "O Veado Ferido", "imagem": "images/O_veado_ferido.jpg" }
+        {
+          "titulo": "Autorretrato com Colar de Espinhos",
+          "imagem": "images/frida_kahlo.jpg"
+        },
+        {
+          "titulo": "As Duas Fridas",
+          "imagem": "images/as-duas-fridas.jpg"
+        },
+        {
+          "titulo": "O Veado Ferido",
+          "imagem": "images/O_veado_ferido.jpg"
+        }
       ],
-      "descricaoCompleta": "Frida Kahlo (1907–1954) foi uma das artistas mais icônicas do México..."
+      "descricaoCompleta": "Frida Kahlo (1907-1954) foi uma das artistas mais icônicas do México..."
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Leonardo da Vinci",
       "descricao": "Um gênio renascentista, criador da icônica Mona Lisa.",
       "imagem": "images/leonardo-da-vinci.jpg",
       "obras": [
-        { "titulo": "Mona Lisa", "imagem": "images/mona-lisa.jpg" },
-        { "titulo": "A Última Ceia", "imagem": "images/ultima-ceia.jpg" },
-        { "titulo": "Homem Vitruviano", "imagem": "images/homem-vitruviano.jpg" }
+        {
+          "titulo": "Mona Lisa",
+          "imagem": "images/mona-lisa.jpg"
+        },
+        {
+          "titulo": "A Última Ceia",
+          "imagem": "images/ultima-ceia.jpg"
+        },
+        {
+          "titulo": "Homem Vitruviano",
+          "imagem": "images/homem-vitruviano.jpg"
+        }
       ],
-      "descricaoCompleta": "Leonardo da Vinci (1452–1519) foi o maior expoente do Renascimento italiano..."
+      "descricaoCompleta": "Leonardo da Vinci (1452-1519) foi o maior expoente do Renascimento italiano..."
     }
   ]
 }

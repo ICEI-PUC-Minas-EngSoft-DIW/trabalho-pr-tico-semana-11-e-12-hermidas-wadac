@@ -1,18 +1,40 @@
 {
-  "usuarios": [
+  "artists": [
     {
-      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
-      "login": "admin",
-      "senha": "123",
-      "nome": "Administrador do Sistema",
-      "email": "admin@abc.com"
+      "id": 1,
+      "nome": "Vincent van Gogh",
+      "descricao": "Conhecido por suas pinceladas expressivas e cores vibrantes.",
+      "imagem": "images/Vincent_van_Gogh.jpg",
+      "obras": [
+        { "titulo": "Noite Estrelada", "imagem": "images/Starry_Night_.jpg" },
+        { "titulo": "Girassóis", "imagem": "images/girassois.jpg" },
+        { "titulo": "Quarto em Arles", "imagem": "images/quarto-arles.jpg" }
+      ],
+      "descricaoCompleta": "Vincent van Gogh (1853–1890) foi um dos pintores mais influentes da história da arte ocidental..."
     },
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "123",
-      "nome": "Usuario Comum",
-      "email": "user@abc.com"
+      "id": 2,
+      "nome": "Frida Kahlo",
+      "descricao": "Sua arte é marcada por cores intensas e autorretratos.",
+      "imagem": "images/Frida-Kahlo.jpg",
+      "obras": [
+        { "titulo": "Autorretrato com Colar de Espinhos", "imagem": "images/frida_kahlo.jpg" },
+        { "titulo": "As Duas Fridas", "imagem": "images/as-duas-fridas.jpg" },
+        { "titulo": "O Veado Ferido", "imagem": "images/O_veado_ferido.jpg" }
+      ],
+      "descricaoCompleta": "Frida Kahlo (1907–1954) foi uma das artistas mais icônicas do México..."
+    },
+    {
+      "id": 3,
+      "nome": "Leonardo da Vinci",
+      "descricao": "Um gênio renascentista, criador da icônica Mona Lisa.",
+      "imagem": "images/leonardo-da-vinci.jpg",
+      "obras": [
+        { "titulo": "Mona Lisa", "imagem": "images/mona-lisa.jpg" },
+        { "titulo": "A Última Ceia", "imagem": "images/ultima-ceia.jpg" },
+        { "titulo": "Homem Vitruviano", "imagem": "images/homem-vitruviano.jpg" }
+      ],
+      "descricaoCompleta": "Leonardo da Vinci (1452–1519) foi o maior expoente do Renascimento italiano..."
     }
   ]
 }

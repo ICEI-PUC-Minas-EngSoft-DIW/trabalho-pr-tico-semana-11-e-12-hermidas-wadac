@@ -6,10 +6,10 @@ Para esse projeto, além de mudarmos o JSON para o JSON Server, vamos permitir o
 
 ## Informações do trabalho
 
-- Nome:
-- Matricula:
-- Proposta de projeto escolhida:
-- Breve descrição sobre seu projeto:
+- Nome: Davi Hermidas Lage Brandão
+- Matricula: 899762
+- Proposta de projeto escolhida: Artistas e obras
+- Breve descrição sobre seu projeto: 
 
 **Print dos testes da API com Postman ou similar**
 

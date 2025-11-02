@@ -1,75 +1,34 @@
-// Dados internos (array de objetos) - você pediu para manter no app.js
-const artistas = [
-  {
-    id: 1,
-    nome: "Vincent van Gogh",
-    descricao: "Conhecido por suas pinceladas expressivas e cores vibrantes.",
-    imagem: "images/Vincent_van_Gogh.jpg",
-    obras: [
-      { titulo: "Noite Estrelada", imagem: "images/Starry_Night_.jpg" },
-      { titulo: "Girassóis", imagem: "images/girassois.jpg" },
-      { titulo: "Quarto em Arles", imagem: "images/quarto-arles.jpg" }
-    ],
-    descricaoCompleta: `Vincent van Gogh (1853–1890) foi um dos pintores mais influentes da história da arte ocidental.
-    Nascido na Holanda, produziu mais de 2.000 obras em menos de dez anos, incluindo cerca de 900 pinturas.
-    Conhecido por suas cores vibrantes e pinceladas intensas, obras como "Noite Estrelada" e
-    "Os Girassóis" refletem sua genialidade e emoção. Apesar de enfrentar dificuldades pessoais e financeiras,
-    sua obra se tornou referência e inspiração mundial após sua morte.`
-  },
-  {
-    id: 2,
-    nome: "Frida Kahlo",
-    descricao: "Sua arte é marcada por cores intensas e autorretratos.",
-    imagem: "images/Frida-Kahlo.jpg",
-    obras: [
-      { titulo: "Autorretrato com Colar de Espinhos", imagem: "images/frida_kahlo.jpg" },
-      { titulo: "As Duas Fridas", imagem: "images/as-duas-fridas.jpg" },
-      { titulo: "O Veado Ferido", imagem: "images/O_veado_ferido.jpg" }
-    ],
-    descricaoCompleta: `Frida Kahlo (1907–1954) foi uma das artistas mais icônicas do México.
-    Sua obra é autobiográfica e profundamente simbólica, marcada por cores vibrantes, dor física e emocional.
-    Após um acidente grave, Frida transformou seu sofrimento em arte e em lírica visual, explorando identidade,
-    gênero e cultura mexicana. Tornou-se símbolo de força e autenticidade.`
-  },
-  {
-    id: 3,
-    nome: "Leonardo da Vinci",
-    descricao: "Um gênio renascentista, criador da icônica Mona Lisa.",
-    imagem: "images/leonardo-da-vinci.jpg",
-    obras: [
-      { titulo: "Mona Lisa", imagem: "images/mona-lisa.jpg" },
-      { titulo: "A Última Ceia", imagem: "images/ultima-ceia.jpg" },
-      { titulo: "Homem Vitruviano", imagem: "images/homem-vitruviano.jpg" }
-    ],
-    descricaoCompleta: `Leonardo da Vinci (1452–1519) foi o maior expoente do Renascimento italiano,
-    notável por combinar arte e ciência. Pintor, inventor, engenheiro e anatomista, suas pinturas
-    (como "Mona Lisa" e "A Última Ceia") e seus cadernos de estudo influenciam até hoje pelas técnicas
-    e pela visão interdisciplinar da criação.`
-  }
-];
+// URL base da API JSON Server
+const API_BASE = "http://localhost:3000";
+const RESOURCE = "artists"; // endpoint: /artists
 
-// Aguarda DOM carregado
 document.addEventListener("DOMContentLoaded", () => {
-  initIndex();   // tenta montar elementos da index (se estiver)
-  initDetails(); // tenta montar detalhes (se estiver)
+  // Inicializa conforme os elementos presentes na página
+  if (document.getElementById("sliderArtistas")) initIndex();
+  if (document.getElementById("detalhesArtista")) initDetails();
+  if (document.getElementById("formCadastro")) initCadastro();
 });
 
-/* 
+/* ---------------------------
    Funções para index.html
-  */
-
-// Gera slider se existir container
-function initIndex() {
-  renderSlider();
-  renderThumbnails();
-  renderCards();
+   --------------------------- */
+async function initIndex() {
+  try {
+    const artistas = await apiGetAll();
+    renderSlider(artistas);
+    renderThumbnails(artistas);
+    renderCards(artistas);
+  } catch (err) {
+    console.error("Erro ao carregar artistas:", err);
+    const container = document.getElementById("cardsArtistas");
+    if (container) container.innerHTML = `<p class="text-danger">Erro ao carregar dados. Verifique se o JSON Server está rodando.</p>`;
+  }
 }
 
-function renderSlider() {
+function renderSlider(artistas) {
   const sliderContainer = document.getElementById("sliderArtistas");
   if (!sliderContainer) return;
-
-  sliderContainer.innerHTML = ""; // limpar antes
+  sliderContainer.innerHTML = "";
   artistas.forEach((artista, index) => {
     const slide = document.createElement("div");
     slide.className = `carousel-item ${index === 0 ? "active" : ""}`;
@@ -84,7 +43,6 @@ function renderSlider() {
     sliderContainer.appendChild(slide);
   });
 
-  // Reinicia o carousel (caso seja necessário)
   const el = document.getElementById("carouselDestaque");
   if (el && window.bootstrap) {
     // eslint-disable-next-line no-undef
@@ -92,10 +50,9 @@ function renderSlider() {
   }
 }
 
-function renderThumbnails() {
+function renderThumbnails(artistas) {
   const miniaturasContainer = document.getElementById("miniaturasSlider");
   if (!miniaturasContainer) return;
-
   miniaturasContainer.innerHTML = "";
   artistas.forEach((artista, index) => {
     const thumb = document.createElement("img");
@@ -112,7 +69,6 @@ function renderThumbnails() {
         const carousel = new bootstrap.Carousel(carouselEl);
         carousel.to(index);
       }
-      // pequena rolagem para visibilidade do carousel em mobile
       const carouselTop = document.getElementById("carouselDestaque");
       if (carouselTop) carouselTop.scrollIntoView({ behavior: "smooth", block: "center" });
     });
@@ -120,10 +76,9 @@ function renderThumbnails() {
   });
 }
 
-function renderCards() {
+function renderCards(artistas) {
   const cardsContainer = document.getElementById("cardsArtistas");
   if (!cardsContainer) return;
-
   cardsContainer.innerHTML = "";
   artistas.forEach(artista => {
     const col = document.createElement("div");
@@ -142,17 +97,12 @@ function renderCards() {
   });
 }
 
-/* 
- Funções para detalhes.html
-*/
-
-function initDetails() {
-  // só roda se estivermos na página de detalhes (detalhesArtista existe)
+/* ---------------------------
+   Funções para detalhes.html
+   --------------------------- */
+async function initDetails() {
   const detalhesContainer = document.getElementById("detalhesArtista");
   if (!detalhesContainer) return;
-
-  const galeriaContainer = document.getElementById("galeriaObras");
-  if (!galeriaContainer) return;
 
   const params = new URLSearchParams(window.location.search);
   const id = parseInt(params.get("id"), 10);
@@ -161,31 +111,90 @@ function initDetails() {
     return;
   }
 
-  const artista = artistas.find(a => a.id === id);
-  if (!artista) {
-    detalhesContainer.innerHTML = `<p class="text-warning">Artista não encontrado.</p>`;
-    return;
+  try {
+    const artista = await apiGetById(id);
+    if (!artista) {
+      detalhesContainer.innerHTML = `<p class="text-warning">Artista não encontrado.</p>`;
+      return;
+    }
+    renderDetalhes(artista);
+    renderGaleria(artista);
+  } catch (err) {
+    console.error(err);
+    detalhesContainer.innerHTML = `<p class="text-danger">Erro ao buscar detalhes. Verifique o servidor.</p>`;
   }
+}
 
-  // Preenche informações do artista
+function renderDetalhes(artista) {
+  const detalhesContainer = document.getElementById("detalhesArtista");
   detalhesContainer.innerHTML = `
     <div class="row align-items-center">
       <div class="col-md-4 text-center mb-3">
         <img src="${artista.imagem}" alt="${escapeHtml(artista.nome)}" class="img-fluid rounded shadow-sm" style="max-width:320px;">
       </div>
       <div class="col-md-8">
-        <h2>${escapeHtml(artista.nome)}</h2>
-        <p>${escapeHtml(artista.descricaoCompleta || artista.descricao)}</p>
+        <h2 id="nomeArtista">${escapeHtml(artista.nome)}</h2>
+        <p id="descricaoCompleta">${escapeHtml(artista.descricaoCompleta || artista.descricao)}</p>
         <ul>
-          <li><strong>Total de Obras:</strong> ${artista.obras.length}</li>
+          <li><strong>Total de Obras:</strong> ${artista.obras ? artista.obras.length : 0}</li>
         </ul>
+
+        <div class="mt-3">
+          <button id="btnEditar" class="btn btn-outline-primary btn-sm me-2">Editar</button>
+          <button id="btnExcluir" class="btn btn-outline-danger btn-sm">Excluir</button>
+          <a href="cadastro_artista.html" class="btn btn-success btn-sm ms-2">+ Novo Artista</a>
+        </div>
+
+        <div id="editArea" class="mt-3" style="display:none;">
+          <h5>Editar artista</h5>
+          <form id="formEditar">
+            <div class="mb-2">
+              <input id="editNome" class="form-control" required />
+            </div>
+            <div class="mb-2">
+              <input id="editDescricao" class="form-control" required />
+            </div>
+            <div class="mb-2">
+              <input id="editImagem" class="form-control" required />
+            </div>
+            <div class="mb-2">
+              <textarea id="editDescricaoCompleta" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+              <button id="cancelEdit" type="button" class="btn btn-secondary btn-sm">Cancelar</button>
+            </div>
+          </form>
+          <div id="editFeedback" class="mt-2"></div>
+        </div>
+
       </div>
     </div>
   `;
 
-  // Preenche galeria de obras
+  // eventos de editar/excluir
+  document.getElementById("btnEditar").addEventListener("click", () => {
+    toggleEditForm(true, artista);
+  });
+  document.getElementById("btnExcluir").addEventListener("click", () => {
+    if (confirm(`Deseja realmente excluir "${artista.nome}"?`)) {
+      apiDelete(artista.id).then(() => {
+        alert("Artista excluído. Voltando para a home.");
+        window.location.href = "index.html";
+      }).catch(err => {
+        console.error(err);
+        alert("Erro ao excluir. Veja console.");
+      });
+    }
+  });
+}
+
+function renderGaleria(artista) {
+  const galeriaContainer = document.getElementById("galeriaObras");
+  if (!galeriaContainer) return;
   galeriaContainer.innerHTML = "";
-  artista.obras.forEach(obra => {
+  const obras = artista.obras || [];
+  obras.forEach(obra => {
     const col = document.createElement("div");
     col.className = "col-md-4 mb-3";
     col.innerHTML = `
@@ -199,6 +208,134 @@ function initDetails() {
     galeriaContainer.appendChild(col);
   });
 }
+
+/* Edit form handlers */
+function toggleEditForm(show, artista) {
+  const area = document.getElementById("editArea");
+  if (!area) return;
+  area.style.display = show ? "block" : "none";
+  if (!show) return;
+
+  // preencher campos
+  document.getElementById("editNome").value = artista.nome || "";
+  document.getElementById("editDescricao").value = artista.descricao || "";
+  document.getElementById("editImagem").value = artista.imagem || "";
+  document.getElementById("editDescricaoCompleta").value = artista.descricaoCompleta || "";
+
+  document.getElementById("cancelEdit").onclick = () => toggleEditForm(false);
+
+  document.getElementById("formEditar").onsubmit = async (e) => {
+    e.preventDefault();
+    const updated = {
+      ...artista,
+      nome: document.getElementById("editNome").value.trim(),
+      descricao: document.getElementById("editDescricao").value.trim(),
+      imagem: document.getElementById("editImagem").value.trim(),
+      descricaoCompleta: document.getElementById("editDescricaoCompleta").value.trim()
+    };
+    try {
+      await apiPut(artista.id, updated);
+      document.getElementById("editFeedback").innerHTML = `<div class="text-success">Alterado com sucesso. Recarregando...</div>`;
+      setTimeout(() => window.location.reload(), 800);
+    } catch (err) {
+      console.error(err);
+      document.getElementById("editFeedback").innerHTML = `<div class="text-danger">Erro ao salvar.</div>`;
+    }
+  };
+}
+
+/* ---------------------------
+   Funções para cadastro
+   --------------------------- */
+function initCadastro() {
+  const form = document.getElementById("formCadastro");
+  const feedback = document.getElementById("feedback");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const nome = document.getElementById("nome").value.trim();
+    const descricao = document.getElementById("descricao").value.trim();
+    const imagem = document.getElementById("imagem").value.trim();
+    const descricaoCompleta = document.getElementById("descricaoCompleta").value.trim();
+    const obrasText = document.getElementById("obras").value.trim();
+
+    // validação simples
+    if (!nome || !descricao || !imagem) {
+      feedback.innerHTML = `<div class="text-danger">Preencha nome, descrição e imagem.</div>`;
+      return;
+    }
+
+    const obras = parseObrasText(obrasText);
+
+    const novo = { nome, descricao, imagem, descricaoCompleta, obras };
+
+    try {
+      const created = await apiPost(novo);
+      feedback.innerHTML = `<div class="text-success">Artista cadastrado com sucesso! Redirecionando...</div>`;
+      setTimeout(() => window.location.href = `detalhes.html?id=${created.id}`, 900);
+    } catch (err) {
+      console.error(err);
+      feedback.innerHTML = `<div class="text-danger">Erro ao cadastrar. Verifique o servidor.</div>`;
+    }
+  });
+}
+
+function parseObrasText(text) {
+  if (!text) return [];
+  return text.split("\n")
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map(line => {
+      const parts = line.split("|").map(p => p.trim());
+      return { titulo: parts[0] || "Untitled", imagem: parts[1] || "images/placeholder.jpg" };
+    });
+}
+
+/* ---------------------------
+   Funções HTTP (Fetch wrappers)
+   --------------------------- */
+
+async function apiGetAll() {
+  const res = await fetch(`${API_BASE}/${RESOURCE}`);
+  if (!res.ok) throw new Error("GET all falhou");
+  return res.json();
+}
+
+async function apiGetById(id) {
+  const res = await fetch(`${API_BASE}/${RESOURCE}/${id}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("GET by id falhou");
+  return res.json();
+}
+
+async function apiPost(payload) {
+  const res = await fetch(`${API_BASE}/${RESOURCE}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error("POST falhou");
+  return res.json();
+}
+
+async function apiPut(id, payload) {
+  const res = await fetch(`${API_BASE}/${RESOURCE}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error("PUT falhou");
+  return res.json();
+}
+
+async function apiDelete(id) {
+  const res = await fetch(`${API_BASE}/${RESOURCE}/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error("DELETE falhou");
+  return true;
+}
+
+/* ---------------------------
+   Utilitários
+   --------------------------- */
 function escapeHtml(text) {
   if (!text && text !== 0) return "";
   return String(text)

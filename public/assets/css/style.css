@@ -1,0 +1,133 @@
+/* Base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #222;
+  margin: 0;
+}
+
+/* Header */
+header h1 {
+  font-weight: bold;
+}
+
+/* Carousel (altura controlada) */
+#carouselDestaque {
+  max-height: 380px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* Cada imagem do slide */
+#carouselDestaque .carousel-item img {
+  height: 380px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Captions */
+.carousel-caption {
+  bottom: 18px;
+}
+.carousel-caption h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.carousel-caption p {
+  font-size: 0.95rem;
+  margin-bottom: .5rem;
+}
+
+/* Ajustes mobile para o slider */
+@media (max-width: 768px) {
+  #carouselDestaque, #carouselDestaque .carousel-item img {
+    height: 230px;
+  }
+  .carousel-caption h5 {
+    font-size: 1.05rem;
+  }
+  .carousel-caption p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Thumb miniaturas */
+.thumb-slide {
+  object-fit: cover;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  margin: 3px;
+}
+.thumb-slide:hover {
+  transform: scale(1.07);
+  border-color: #ffc107;
+}
+
+/* Cards */
+.card {
+  border: none;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Imagens dentro dos cards */
+.card img {
+  object-fit: cover;
+  height: 240px;
+}
+
+/* Hover-card (classe usada no JS) */
+.hover-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Sobre o autor - estilo moderno */
+section.sobre-autor {
+  background-color: #f0f2f5;
+  padding: 34px 18px;
+  border-radius: 12px;
+}
+section.sobre-autor h2 {
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #343a40;
+}
+.card-autor {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-autor:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
+.card-autor h5 {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #495057;
+}
+.card-autor p {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+/* Footer */
+footer {
+  font-size: 0.9rem;
+}
+
+/* Responsividade: ajustar imagens e textos menores */
+@media (max-width: 576px) {
+  .card img { height: 200px; }
+  .carousel-caption h5 { font-size: 1rem; }
+  .carousel-caption p { font-size: 0.8rem; }
+  section.sobre-autor { padding: 22px 12px; }
+}

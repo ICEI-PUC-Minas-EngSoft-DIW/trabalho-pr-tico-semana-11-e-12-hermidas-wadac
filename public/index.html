@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeria de Artistas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="bg-dark text-white p-3 mb-4 shadow-sm">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <h1 class="h3 m-0">🎨 Galeria de Artistas</h1>
+    <nav>
+      <ul class="nav">
+        <li class="nav-item"><a href="index.html" class="nav-link text-white">Home</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!--Carrossel-->
+  <div id="carouselDestaque" class="carousel slide mb-3" data-bs-ride="carousel" aria-label="Artistas em destaque">
+    <div class="carousel-inner" id="sliderArtistas"></div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaque" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselDestaque" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+  </div>
+
+  <!--miniaturas do Slider-->
+  <div class="d-flex justify-content-center mb-5 flex-wrap" id="miniaturasSlider" aria-hidden="false"></div>
+
+  <!--Seção de artistas (cards gerados dinamicamente)-->
+  <section class="artistas my-5">
+    <h2 class="text-center mb-4">Artistas em Destaque</h2>
+    <div class="row" id="cardsArtistas"></div>
+  </section>
+
+  <!--Sobre o mim-->
+  <section class="sobre-autor my-5">
+    <h2 class="text-center">Sobre o Criador do Site</h2>
+    <div class="row text-center">
+
+      <!--Aluno-->
+      <div class="col-md-4 mb-4">
+        <div class="card-autor">
+          <h5>Aluno</h5>
+          <p>Davi Hermidas Lage Brandão</p>
+        </div>
+      </div>
+
+      <!-- Matrícula -->
+      <div class="col-md-4 mb-4">
+        <div class="card-autor">
+          <h5>Matrícula</h5>
+          <p>899762</p>
+        </div>
+      </div>
+
+      <!-- Descrição -->
+      <div class="col-md-4 mb-4">
+        <div class="card-autor">
+          <h5>Descrição</h5>
+          <p>Eu gosto muito desses três artistas; desde a época em que estudei sobre eles na escola acho a arte deles muito inspiradora. No meu primeiro site tinha feito sobre a J.K. Rowling, mas esses se encaixam mais por sua importância histórica.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+  <p>© 2025 Galeria de Artistas - Todos os direitos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
